@@ -17,12 +17,13 @@ function TaskManager() {
   const [toHome, setToHome] = useState(false);
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
+  const [tasAdd, setTaskAdd] = useState('adicionar');
 
-  function delay(n: number){
-    return new Promise(function(resolve){
-        setTimeout(resolve,n*1000);
+  function delay(n: number) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, n * 1000);
     });
-}
+  }
 
   const findTasks = async () => {
     setLoading(true);
@@ -115,8 +116,12 @@ function TaskManager() {
   };
 
   useEffect(() => {
+    if (window.screen.width < 400) {
+      setTaskAdd('add')
+    }
+
     findTasks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -140,7 +145,7 @@ function TaskManager() {
               <input
                 type="submit"
                 className="new-task-submit"
-                value="add"
+                value={tasAdd}
                 onClick={() => newTask()}
               />
             </form>
