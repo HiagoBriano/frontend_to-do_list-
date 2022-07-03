@@ -41,7 +41,6 @@ function Login() {
     localStorage.setItem('token', JSON.stringify(response.token));
     setToken(response.token);
 
-    setLoading(false);
     setRedirect(true);
   };
 

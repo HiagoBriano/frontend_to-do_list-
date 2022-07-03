@@ -27,7 +27,7 @@ function TaskManager() {
   const findTasks = async () => {
     setLoading(true);
 
-    setStatusMessage('Estamos buscando sua lista de tarefas atualizada');
+    setStatusMessage('Atualizando servidor');
 
     if (token.length < 10) {
       alert('Ops, algo deu errado, por favor, faça login novamente');
@@ -35,8 +35,9 @@ function TaskManager() {
       return;
     }
 
-    await delay(1);
+    await delay(1.5);
 
+    setStatusMessage('Estamos buscando sua lista de tarefas atualizada');
     const response = await FetchTasks(token);
 
     if (response.message) {
@@ -60,7 +61,7 @@ function TaskManager() {
       return;
     }
 
-    const response = await AddTask(token, task as string, 'in progress');
+    const response = await AddTask(token, task as string, 'pending');
 
     if (response.message !== 'created task') {
       setToHome(true);
@@ -115,6 +116,7 @@ function TaskManager() {
 
   useEffect(() => {
     findTasks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -138,7 +140,7 @@ function TaskManager() {
               <input
                 type="submit"
                 className="new-task-submit"
-                value="Adicionar"
+                value="add"
                 onClick={() => newTask()}
               />
             </form>
