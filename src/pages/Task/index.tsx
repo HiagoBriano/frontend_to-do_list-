@@ -18,8 +18,15 @@ function TaskManager() {
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
 
+  function delay(n: number){
+    return new Promise(function(resolve){
+        setTimeout(resolve,n*1000);
+    });
+}
+
   const findTasks = async () => {
     setLoading(true);
+
     setStatusMessage('Estamos buscando sua lista de tarefas atualizada');
 
     if (token.length < 10) {
@@ -28,6 +35,8 @@ function TaskManager() {
       return;
     }
 
+    await delay(1);
+
     const response = await FetchTasks(token);
 
     if (response.message) {
@@ -35,13 +44,14 @@ function TaskManager() {
       alert('Ops, algo deu errado, por favor, faça login novamente');
       return;
     }
-    
+
     setTasks(response.Task);
     setLoading(false);
   };
 
   const newTask = async () => {
     setLoading(true);
+    setTask('');
     setStatusMessage('Estamos adicionando sua nova tarefa');
 
     if (token.length < 10) {
@@ -100,7 +110,7 @@ function TaskManager() {
       return;
     }
 
-    findTasks();
+    await findTasks();
   };
 
   useEffect(() => {
