@@ -11,7 +11,7 @@ function Loading({ status }: IProps) {
   return (
     <div className="spinner">
       <div className="ball"></div>
-      <p>CARREGANDO</p>
+      <p>LOADING</p>
       <p>{status}</p>
     </div>
   );
